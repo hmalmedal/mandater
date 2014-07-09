@@ -7,7 +7,7 @@ shinyUI(fluidPage(
     sidebarLayout(
         sidebarPanel(
             selectInput(inputId = "periode",
-                        label = "Stortingsperiode",
+                        label = "Periode",
                         choices = list("2005–2013" = 2004,
                                        "2013–2021" = 2012,
                                        "2021–2029" = 2020,
