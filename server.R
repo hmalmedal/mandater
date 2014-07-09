@@ -30,9 +30,15 @@ mandatfordelingsdata <- rbind(mandatfordelingsdata, arealfolk)
 mandatfordelingsdata  <- mandatfordelingsdata %>%
     arrange(Tid, Fylke)
 
+source("saintelague.R")
+
+mandatfordelingsdata <- mandatfordelingsdata %>%
+    group_by(Tid) %>%
+    mutate(Mandater = saintelague(169, Folketall + 1.8 * Areal))
+
 shinyServer(function(input, output) {
     tabell <- reactive({
-        mandatfordelingsdata %>%
+        ungroup(mandatfordelingsdata) %>%
             filter(Tid == input$periode) %>%
             select(-Tid)
     })
