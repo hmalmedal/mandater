@@ -13,7 +13,8 @@ shinyUI(fluidPage(
                                        "2021–2029" = 2020,
                                        "2029–2037" = 2028,
                                        "2037–2045" = 2036),
-                        selected = 2012)
+                        selected = 2012),
+            a(href = "https://github.com/hmalmedal/mandater", "GitHub")
         ),
 
         mainPanel(
