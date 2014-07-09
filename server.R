@@ -5,6 +5,7 @@ mandatfordelingsdata <- read.csv("mandatfordelingsdata.csv",
                                  stringsAsFactors = F)
 
 source("areal.R")
+source("folkemengde.R")
 
 shinyServer(function(input, output) {
     tabell <- reactive({
