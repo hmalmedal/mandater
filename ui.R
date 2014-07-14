@@ -14,6 +14,9 @@ shinyUI(fluidPage(
                                  "2029–2037" = 2028,
                                  "2037–2045" = 2036),
                   selected = 2012),
+      p("Dette er en oversikt over fordelingene av stortingsmandatene.
+De to første periodene bruker de faktiske tallene for folketall og areal,
+mens resten bruker Statistisk sentralbyrås framskrevne befolkningstall."),
       a(href = "https://github.com/hmalmedal/mandater", "GitHub")
     ),
 
