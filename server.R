@@ -1,5 +1,5 @@
 library(shiny)
-library(dplyr)
+library(dplyr, warn.conflicts = F)
 
 mandatfordelingsdata <- read.csv("mandatfordelingsdata.csv",
                                  stringsAsFactors = F)
@@ -21,7 +21,7 @@ folk <- ungroup(folk) %>%
                          labels = fylker)) %>%
   select(Fylke = region, Folketall = folkemengde, Tid = tid)
 
-arealfolk <- inner_join(folk, areal)
+arealfolk <- inner_join(folk, areal, by = "Fylke")
 
 mandatfordelingsdata <- mandatfordelingsdata %>%
   mutate(Fylke = factor(Fylke, levels = unique(Fylke), labels = fylker))
