@@ -1,5 +1,5 @@
 library(httr)
-library(dplyr, warn.conflicts = F)
+library(dplyr, warn.conflicts = FALSE)
 folk <- content(GET("http://data.ssb.no/api/v0/dataset/85436.csv?lang=no"),
                 type = "text/csv", sep = ";", dec = ",")
 names(folk)[6] <- "folkemengde"

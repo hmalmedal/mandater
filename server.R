@@ -1,8 +1,8 @@
 library(shiny)
-library(dplyr, warn.conflicts = F)
+library(dplyr, warn.conflicts = FALSE)
 
 mandatfordelingsdata <- read.csv("mandatfordelingsdata.csv",
-                                 stringsAsFactors = F)
+                                 stringsAsFactors = FALSE)
 
 source("areal.R")
 source("folkemengde.R")
