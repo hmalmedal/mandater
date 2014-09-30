@@ -2,7 +2,7 @@ library(shiny)
 library(dplyr, warn.conflicts = FALSE)
 
 mandatfordelingsdata <- read.csv("mandatfordelingsdata.csv",
-                                 stringsAsFactors = FALSE)
+                                 stringsAsFactors = FALSE) %>% tbl_df
 
 source("areal.R")
 source("folkemengde.R")
@@ -23,27 +23,20 @@ folk <- ungroup(folk) %>%
 
 arealfolk <- inner_join(folk, areal, by = "Fylke")
 
-mandatfordelingsdata <- mandatfordelingsdata %>%
-  mutate(Fylke = factor(Fylke, levels = unique(Fylke), labels = fylker))
-mandatfordelingsdata <- rbind(mandatfordelingsdata, arealfolk)
-
-mandatfordelingsdata <- mandatfordelingsdata %>%
-  arrange(Tid, Fylke)
-
 source("saintelague.R")
-
-mandatfordelingsdata <- mandatfordelingsdata %>%
-  group_by(Tid) %>%
-  mutate(Mandater = saintelague(169, Folketall + 1.8 * Areal))
-
 pre2004 <- c(8, 15, 16, 8, 7, 7, 8, 6, 4, 5, 11, 17, 5, 10, 10, 6, 12, 6, 4)
-
-mandatfordelingsdata <- ungroup(mandatfordelingsdata) %>%
+mandatfordelingsdata <- mandatfordelingsdata %>%
+  mutate(Fylke = factor(Fylke, levels = unique(Fylke), labels = fylker)) %>%
+  rbind(arealfolk) %>%
+  arrange(Tid, Fylke) %>%
+  group_by(Tid) %>%
+  mutate(Mandater = saintelague(169, Folketall + 1.8 * Areal)) %>%
+  ungroup %>%
   mutate(Endring = diff(c(pre2004, Mandater), lag = 19))
 
 shinyServer(function(input, output) {
   tabell <- reactive({
-    ungroup(mandatfordelingsdata) %>%
+    mandatfordelingsdata %>%
       filter(Tid == input$periode) %>%
       select(-Tid)
   })
