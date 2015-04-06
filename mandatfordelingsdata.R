@@ -1,7 +1,7 @@
 library(dplyr, warn.conflicts = FALSE)
 
 mandatfordelingsdata <- read.csv("mandatfordelingsdata.csv",
-                                 stringsAsFactors = FALSE) %>% tbl_df
+                                 stringsAsFactors = FALSE) %>% tbl_df()
 
 source("areal.R")
 source("folkemengde.R")
@@ -30,5 +30,5 @@ mandatfordelingsdata <- mandatfordelingsdata %>%
   arrange(Tid, Fylke) %>%
   group_by(Tid) %>%
   mutate(Mandater = saintelague(169, Folketall + 1.8 * Areal)) %>%
-  ungroup %>%
+  ungroup() %>%
   mutate(Endring = diff(c(pre2004, Mandater), lag = 19))
