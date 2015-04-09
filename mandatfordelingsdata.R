@@ -1,7 +1,7 @@
 library(dplyr, warn.conflicts = FALSE)
+library(readr)
 
-mandatfordelingsdata <- read.csv("mandatfordelingsdata.csv",
-                                 stringsAsFactors = FALSE) %>% tbl_df()
+mandatfordelingsdata <- read_csv("mandatfordelingsdata.csv")
 
 source("areal.R")
 source("folkemengde.R")
