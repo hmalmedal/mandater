@@ -25,7 +25,7 @@ arealfolk <- inner_join(folk, areal, by = "Fylke")
 source("saintelague.R")
 pre2004 <- c(8, 15, 16, 8, 7, 7, 8, 6, 4, 5, 11, 17, 5, 10, 10, 6, 12, 6, 4)
 mandatfordelingsdata <- mandatfordelingsdata %>%
-  mutate(Fylke = factor(Fylke, levels = unique(Fylke), labels = fylker)) %>%
+  mutate(Fylke = factor(Fylke, levels = fylker)) %>%
   rbind(arealfolk) %>%
   arrange(Tid, Fylke) %>%
   group_by(Tid) %>%
