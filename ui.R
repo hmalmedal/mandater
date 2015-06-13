@@ -21,7 +21,7 @@ mens resten bruker Statistisk sentralbyrås framskrevne befolkningstall."),
     ),
 
     mainPanel(
-      dataTableOutput("tabell")
+      DT::dataTableOutput("tabell")
     )
   )
 ))
