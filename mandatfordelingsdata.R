@@ -1,4 +1,4 @@
-library(dplyr, warn.conflicts = FALSE)
+library(dplyr)
 library(readr)
 
 mandatfordelingsdata <- read_csv("mandatfordelingsdata.csv")

@@ -1,9 +1,7 @@
-library(httr)
-library(dplyr, warn.conflicts = FALSE)
+library(dplyr)
 library(rjstat)
-areal <- GET("http://data.ssb.no/api/v0/dataset/85430.json?lang=no") %>%
-  content(as = "text") %>%
-  fromJSONstat(naming = "id") %>%
+areal <- fromJSONstat("http://data.ssb.no/api/v0/dataset/85430.json?lang=no",
+                      naming = "id") %>%
   getElement(1) %>%
   tbl_df() %>%
   mutate(fylkesnr = substr(Region, 1, 2)) %>%
