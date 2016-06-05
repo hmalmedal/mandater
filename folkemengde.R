@@ -34,7 +34,7 @@ q <- toJSON(q)
 r <- POST("http://data.ssb.no/api/v0/no/table/10213", body = q)
 
 folk <- content(r, as = "text") %>%
-  fromJSONstat() %>%
+  fromJSONstat(use_factors = TRUE) %>%
   getElement(1) %>%
-  mutate(Tid = as.integer(år)) %>%
+  mutate(Tid = år %>% as.character() %>% as.integer()) %>%
   select(Fylke = region, Folketall = value, Tid)
