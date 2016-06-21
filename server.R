@@ -9,6 +9,6 @@ shinyServer(function(input, output) {
       filter(Tid == input$periode) %>%
       select(-Tid)
   },
-  options = list(pageLength = 19))
+  options = list(paging = FALSE))
 
 })
