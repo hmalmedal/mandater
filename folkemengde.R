@@ -31,7 +31,7 @@ q <- list(
 
 q <- toJSON(q)
 
-r <- POST("http://data.ssb.no/api/v0/no/table/10213", body = q)
+r <- POST("http://data.ssb.no/api/v0/no/table/11168", body = q)
 
 folk <- content(r, as = "text") %>%
   fromJSONstat(use_factors = TRUE) %>%
