@@ -16,6 +16,6 @@ mandatfordelingsdata <- read_csv("mandatfordelingsdata.csv",
                                  col_types = "ciii") %>%
   bind_rows(arealfolk) %>%
   group_by(Tid) %>%
-  mutate(Mandater = saintelague(169, Folketall + 1.8 * Areal)) %>%
+  mutate(Mandater = saintelague(Folketall + 1.8 * Areal, 169)) %>%
   ungroup() %>%
   mutate(Endring = diff(c(pre2004, Mandater), lag = 19))
