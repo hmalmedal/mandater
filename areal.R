@@ -36,4 +36,4 @@ areal <- content(response, as = "text") %>%
   select(Kommunenummer = Region, Areal = value) %>%
   full_join(valgdistrikt, by = "Kommunenummer") %>%
   group_by(Valgdistrikt) %>%
-  summarise(Areal = round(sum(Areal)))
+  summarise(Areal = as.integer(round(sum(Areal))))

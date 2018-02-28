@@ -9,7 +9,8 @@ arealfolk <- inner_join(folk, areal, by = "Valgdistrikt") %>%
   arrange(Tid, Valgdistrikt)
 
 source("saintelague.R")
-pre2004 <- c(8, 15, 16, 8, 7, 7, 8, 6, 4, 5, 11, 17, 5, 10, 10, 6, 12, 6, 4)
+pre2004 <- c(8, 15, 16, 8, 7, 7, 8, 6, 4, 5, 11, 17, 5, 10, 10, 6, 12, 6, 4) %>%
+  as.integer()
 
 mandat_col_types <- cols(
   Valgdistrikt = col_factor(v),
