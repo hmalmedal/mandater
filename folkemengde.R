@@ -3,6 +3,8 @@ library(httr)
 library(jsonlite)
 library(rjstat)
 
+source("valgdistrikt.R")
+
 q <- list(
   query = list(
     list(
@@ -36,5 +38,8 @@ r <- POST("http://data.ssb.no/api/v0/no/table/11168", body = q)
 folk <- content(r, as = "text") %>%
   fromJSONstat(use_factors = TRUE) %>%
   getElement(1) %>%
+  as_tibble() %>%
   mutate(Tid = år %>% as.character() %>% as.integer()) %>%
-  select(Fylke = region, Folketall = value, Tid)
+  select(Valgdistrikt = region, Folketall = value, Tid)
+
+levels(folk$Valgdistrikt) <- v
