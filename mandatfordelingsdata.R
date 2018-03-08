@@ -1,4 +1,5 @@
 library(dplyr)
+library(forcats)
 library(readr)
 library(stringr)
 
@@ -9,20 +10,20 @@ arealfolk <- inner_join(folk, areal, by = "Valgdistrikt") %>%
   arrange(Tid, Valgdistrikt)
 
 source("saintelague.R")
-pre2004 <- c(8, 15, 16, 8, 7, 7, 8, 6, 4, 5, 11, 17, 5, 10, 10, 6, 12, 6, 4) %>%
-  as.integer()
-
-mandat_col_types <- cols(
-  Valgdistrikt = col_factor(v),
-  Folketall = col_integer(),
-  Tid = col_integer(),
-  Areal = col_integer()
-)
+pre2004 <- read_csv("pre2004.csv", col_types = "ci") %>%
+  mutate_at(vars(Valgdistrikt), funs(as_factor)) %>%
+  mutate(Tid = integer(19))
 
 mandatfordelingsdata <- read_csv("mandatfordelingsdata.csv",
-                                 col_types = mandat_col_types) %>%
+                                 col_types = "ciii") %>%
+  mutate_at(vars(Valgdistrikt), funs(as_factor)) %>%
   bind_rows(arealfolk) %>%
   group_by(Tid) %>%
   mutate(Mandater = saintelague(Folketall + 1.8 * Areal, 169)) %>%
   ungroup() %>%
-  mutate(Endring = diff(c(pre2004, Mandater), lag = 19))
+  bind_rows(pre2004) %>%
+  arrange(Tid, Valgdistrikt) %>%
+  group_by(Valgdistrikt) %>%
+  mutate(Endring = Mandater - lag(Mandater)) %>%
+  ungroup() %>%
+  filter(Tid > 0)
